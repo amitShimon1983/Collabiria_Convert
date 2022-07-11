@@ -1,0 +1,31 @@
+Users for testing 
+Admin 
+username: admin@M365x615333.onmicrosoft.com 
+password: 663T21b0yV
+
+Adele Vance 
+username: adelev@M365x615333.onmicrosoft.com 
+password: 663T21b0yV
+
+TeamMate features
+
+Share email – select an email and insert it to a Teams conversation 
+Steps to test:
+1.	Open TeamMate
+2.	Select mail folder in the left pane or expand folders pane and select folder in the pane
+3.	Select email from the list
+4.	Preview email before sharing
+5.	Click on Share button
+
+Search email to share – search email you want to share 
+Steps to test:
+1.	Open TeamMate
+2.	Select mail folder in the left pane or expand folders pane and select folder in the pane
+3.	Select search scopes Current Folder or All Mailbox
+4.	Search by text or select person from suggested searches list
+
+Adaptive card - colleagues can view and respond to the email directly from Teams
+1.	Click Reply or Reply All button in the conversation
+2.	Add some text 
+3.	Send message
+4.	To preview shared email in the conversation, click on Show Full Email button

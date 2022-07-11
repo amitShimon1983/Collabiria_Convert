@@ -1,0 +1,1 @@
+export { transformElementForDarkMode } from './transformElementForDarkMode';

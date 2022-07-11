@@ -1,0 +1,46 @@
+{
+  "name": "@harmonie/ui",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "./src/index.js",
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "react-virtualized": "*",
+    "@uifabric/styling": "*",
+    "office-ui-fabric-react": "*",
+    "@uifabric/file-type-icons": "*",
+    "@fluentui/react": "*",
+    "@uifabric/merge-styles": "*",
+    "react-highlighter": "*",
+    "@uifabric/react-hooks": "*",
+    "crypto": "*",
+    "@microsoft/teams-js": "*",
+    "@rehooks/local-storage": "*",
+    "styled-components": "*",
+    "react-beautiful-dnd": "*",
+    "@apollo/client": "*",
+    "node-sass": "*",
+    "lodash": "^4.17.20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "antlr4js": "antlr4-tool ./src/Autocomplete/PoolQuery.g4 -o ./src/Autocomplete/ANTLR"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "babel-loader": "8.1.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "antlr4": "^4.8.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,19 @@
+.information {
+  max-height: 5vh;
+  font-size: 1.7vh;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 1300px) {
+  .information {
+    font-size: 1.9vh;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .information {
+    max-height: 4vh;
+    font-size: 1.9vh;
+  }
+}

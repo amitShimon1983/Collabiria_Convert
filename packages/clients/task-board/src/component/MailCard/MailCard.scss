@@ -1,0 +1,247 @@
+
+.mail-card {
+
+  height: 80%;
+
+  .email-preview-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .main {
+      margin: 10px 20px 0px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+
+      .main-header {
+        height: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        padding: 20px 15px 0;
+
+        .main-header-details {
+          display: flex;
+          align-items: center;
+          flex: 1;
+
+
+
+          .subject-and-sent-date {
+
+            color: #6264a7;
+            font-size: 12px;
+            .title {
+              font-size: 16px;
+              font-weight: 600;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width: 650px;
+
+            }
+
+          }
+
+          .edit-container {
+            display: flex;
+            font-size: 12px;
+            align-items: center;
+
+            .edit-container-text {
+              font-style: italic;
+              margin: 0 10px;
+              color: #7E7E7E;
+              display: none;
+              text-decoration: underline;
+              cursor: pointer;
+            }
+            .active {
+              display: block;
+
+            }
+            .edit-container-icon {
+              cursor: pointer;
+              user-select: none;
+            }
+
+          }
+
+          .edit-container-disable {
+            opacity: 0.5;
+            pointer-events: none;
+          }
+
+        }
+      }
+
+      .side {
+        width: 50px;
+        margin-right: 20px;
+
+        img {
+          height: 40px;
+          width: 40px;
+          max-height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .addressees {
+        padding-left: 5rem;
+        font-size: 16px;
+
+        label {
+
+          font-weight: 600;
+          text-align: left;
+          line-height: 18.62px;
+          display: inline-block;
+          flex: 0 0 auto;
+          width: auto;
+          margin-right: 5px;
+        }
+      }
+
+      .content {
+        height: calc(100% - 110px);
+        margin: 10px 10px 20px 5rem;
+        overflow: auto;
+
+        .html-not-active {
+          display: none;
+        }
+      }
+      .html-content {
+        background-color: transparent;
+        overflow: auto;
+        border: none;
+        border-radius: unset;
+      }
+
+      .content-dark .se-wrapper {
+        * {
+          color: white !important;
+           background-color: black !important;
+        }
+      }
+
+    }
+
+    .attachments {
+      max-height: 110px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      margin: 10px 20px 7px 20px;
+      justify-content: space-between;
+
+      .attachment {
+        height: 45px;
+        display: flex;
+        margin: 5px 0 0;
+        align-items: center;
+
+
+        .attachment-container {
+          text-align: center;
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          padding-left: 15px;
+
+          .icon {
+            width: 50px;
+            margin: 0px 5px;
+            min-width: 50px;
+            height: 32px;
+
+          }
+
+          .attachment-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            .filename {
+              overflow: hidden;
+              font-size: 16px;
+              font-weight: 600;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width: 100%;
+              max-width: 750px;
+
+
+            }
+
+            .size {
+              overflow: hidden;
+              font-size: 12px;
+              font-weight: 400;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+
+
+        }
+      }
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .attachments::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .attachments {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .mail-card .email-preview-container .main .content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+}
+@media only screen and (max-width: 1000px) {
+  .mail-card .email-preview-container .main .main-header .main-header-details .subject-and-sent-date .title {
+    max-width: 520px;
+  }
+  .mail-card .email-preview-container .attachments .attachment .attachment-container .attachment-content .filename {
+    max-width: 620px;
+  }
+  .mail-card .email-preview-container .attachments {
+    height: 50px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .mail-card .email-preview-container .main .main-header .main-header-details .subject-and-sent-date .title {
+    max-width: 400px;
+  }
+  .mail-card .email-preview-container .attachments .attachment .attachment-container .attachment-content .filename {
+    max-width: 450px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .mail-card .email-preview-container .main .main-header .main-header-details .subject-and-sent-date .title {
+    max-width: 300px;
+  }
+  .mail-card .email-preview-container .attachments .attachment .attachment-container .attachment-content .filename {
+    max-width: 350px;
+  }
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

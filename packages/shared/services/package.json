@@ -1,0 +1,28 @@
+{
+  "name": "@harmonie/services",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "./src/index.js",
+  "peerDependencies": {
+    "@apollo/client": "*",
+    "@uifabric/file-type-icons": "*",
+    "@uifabric/styling": "*",
+    "@uifabric/theme-samples": "*",
+    "@uifabric/variants": "*",
+    "mixpanel-browser": "*",
+    "office-ui-fabric-react": "*",
+    "react": "*",
+    "use-mobile-detect-hook": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "react-device-detect": "^2.1.2"
+  }
+}

@@ -1,0 +1,275 @@
+.edit-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  opacity: 0;
+  transition: 350ms ease all;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &.active {
+    left: 0px;
+    opacity: 1;
+  }
+
+  .share-error {
+    height: 32px;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    i {
+      font-size: 16px;
+      margin-right: 10px;
+      margin-left: 20px;
+    }
+  }
+
+  .card {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .mail-card-mobile {
+      .main {
+        margin: 20px 20px 7px 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+
+        .side {
+          width: 50px;
+          margin-right: 20px;
+
+          img {
+            height: 40px;
+            width: 40px;
+            max-height: 100%;
+            border-radius: 50%;
+          }
+        }
+
+        .content {
+          width: 95%;
+
+          .share-actions {
+            flex-shrink: 0;
+            float: right;
+            min-width: 50px;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            top: -6px;
+          }
+          .title {
+            font-size: 14px;
+            color: #6264a7;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 90%;
+          }
+          .sent-date {
+            font-size: 12px;
+            color: #6264a7;
+            font-weight: 400;
+            text-align: left;
+            line-height: 15.96px;
+            margin-bottom: 20px;
+          }
+          .addressees {
+            label {
+              font-size: 14px;
+              color: #6264a7;
+              font-weight: 600;
+              text-align: left;
+              line-height: 18.62px;
+              display: inline-block;
+              flex: 0 0 auto;
+              width: 49px;
+            }
+          }
+          .preview {
+            margin-top: 20px;
+          }
+        }
+      }
+
+      .attachments {
+        .attachment {
+          margin: 7px 20px 0px;
+          padding: 20px;
+          display: flex;
+          flex-direction: row;
+
+          .icon {
+            margin-left: 68px;
+            width: 50px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            min-width: 50px;
+          }
+
+          .content {
+            flex-grow: 1;
+            max-width: calc(100% - 182px);
+
+            .filename {
+              overflow: hidden;
+              font-size: 14px;
+              font-weight: 600;
+              line-height: 18.62px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              margin-bottom: 10px;
+            }
+            .size {
+              overflow: hidden;
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 15.96px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    margin-top: 10px;
+    right: 25px;
+    height: 50px;
+    flex-shrink: 0;
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .subscribe-text {
+      cursor: pointer;
+      text-align: left;
+      font: normal normal 600 14px/16px;
+      letter-spacing: 0px;
+      color: #6264a7;
+      opacity: 1;
+      position: absolute;
+      left: 48px;
+      top: 8px;
+      .subscribe-link {
+        background-color: transparent;
+        color: blue;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        display: inline;
+        margin: 0;
+        padding: 0;
+      }
+
+      .subscribe-link:hover,
+      .subscribe-link:focus {
+        text-decoration: none;
+      }
+    }
+
+    .exit-walkthrough {
+      cursor: pointer;
+      text-align: left;
+      text-decoration: underline;
+      font: normal normal 600 14px/16px;
+      letter-spacing: 0px;
+      color: #6264a7;
+      opacity: 1;
+      position: absolute;
+      left: 48px;
+      top: 8px;
+    }
+
+    & > * {
+      margin-left: 14px;
+    }
+  }
+}
+
+.edit-page-onboarding {
+  background: transparent linear-gradient(0deg, #9093eb 0%, #d94eee 100%) 0% 0% no-repeat padding-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+
+  .first {
+    font: normal normal normal 20px/27px;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  .second {
+    font: normal normal normal 16px/21px;
+    color: #fff;
+  }
+}
+
+.preview-callout {
+  .ms-Callout-beak {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .edit-page {
+    .card {
+      .mail-card-mobile {
+        .main {
+          margin: 0px;
+          .share-actions {
+            right: -30px;
+          }
+        }
+        .attachments {
+          .attachment {
+            margin: 7px 0px 0px 0px;
+            padding: 5px;
+
+            .icon {
+              width: 40px;
+              min-width: 40px;
+              margin-left: 19px;
+              margin-right: 26px;
+            }
+
+            .content {
+              max-width: calc(100% - 121px);
+              .filename {
+                margin-bottom: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bottom {
+      flex-direction: column;
+      width: 100%;
+      right: 0px;
+      left: 0px;
+      padding: 0px;
+      margin: 0px;
+      height: auto;
+      .share-error {
+        margin-left: 0px;
+        margin-bottom: 10px;
+      }
+      button {
+        margin: 0px 15px 15px 15px;
+        height: 40px;
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2020
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+settings:
+  react:
+    version: detect
+  import/internal-regex: ^@harmonie
+plugins:
+  - import
+  - prettier
+
+extends:
+  - plugin:@typescript-eslint/recommended
+  - prettier/@typescript-eslint
+  - prettier
+  - plugin:prettier/recommended
+
+rules:
+  prefer-template:
+    - warn
+  'import/order':
+    - 'off'
+    - 
+      'newlines-between': 'always'
+      pathGroups: [
+        {
+          pattern: '~/**',
+          group: 'index',
+          position: 'after'
+        },
+        {
+          pattern: '@harmonie/**',
+          group: 'index',
+          position: 'before'
+        },
+      ]
+      groups: ['builtin', 'external', 'internal', 'index', 'object', ['parent', 'sibling']]
+       # object, index, sibling, parent, internal, external, 
+  prettier/prettier:
+    - warn
+  no-console:
+    - warn
+    - allow:
+        - warn
+    #     - info
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/ban-ts-ignore': off 
+  '@typescript-eslint/ban-ts-comment': off
+  '@typescript-eslint/no-empty-interface': warn
+  '@typescript-eslint/no-use-before-define': [warn, { functions: false }]
+  '@typescript-eslint/no-non-null-assertion': off
+  '@typescript-eslint/no-unused-vars':
+    - warn
+    - argsIgnorePattern: '^_'
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/explicit-module-boundary-types': off
+  
+ignorePatterns:
+  - dist/**/*
+  - build/**/*
+  - generated/**/*

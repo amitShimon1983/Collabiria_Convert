@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "rootDirs": ["src", "stories"],
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@harmonie/services": ["../services/src"],
+      "@harmonie/utils": ["../utils/src"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,165 @@
+.ms-Dialog-main {
+  // border-radius: 15px !important;
+  border: 1px solid #c5c5c5;
+}
+.container-potential-task {
+  width: 120vh;
+  height: 86vh;
+  padding-top: 1vh;
+  border-bottom: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.displayNone {
+  display: none;
+}
+.error-container-potential-task {
+  width: 60vh;
+  height: 48vh;
+  padding-top: 1vh;
+  border-bottom: 0;
+  overflow: hidden;
+}
+.on-error-exist-button {
+  margin-left: auto;
+  width: 10%;
+}
+
+.ms-TooltipHost-header {
+  width: 90%;
+}
+
+.subject-container-potential-task {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding-bottom: 1vh;
+  width: 100%;
+}
+
+.message-details-container {
+  display: flex;
+  padding-top: 1vh;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.persona-potential-task {
+  margin-right: 2vh;
+}
+
+.message-container {
+  padding: 0 0 0 2vh;
+  box-shadow: 0px 3px 6px #00000029;
+  height: 100%;
+  overflow: hidden;
+}
+.to {
+  color: '#FFFFFF';
+}
+.collapse-icon-potential-task {
+  margin: 0 2.5vh 0 auto;
+}
+
+.button-container {
+  // display: flex;
+}
+
+.alertdialog-potential-task {
+  width: 20vh;
+  padding: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+}
+.message-body-container {
+  overflow-y: auto;
+  padding: 2vh;
+  padding-bottom: 0;
+  word-wrap: break-word;
+  height: 76%;
+}
+
+.information {
+  max-height: 3vh;
+  font-size: 1.7vh;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.information-container {
+  padding-right: 2vh;
+}
+
+.data {
+  font-size: 1.7vh;
+}
+
+.conversation-container {
+  width: 100%;
+}
+.attachments-container {
+  margin: 0 auto;
+  margin-bottom: 0.5vh;
+  max-height: 8vh;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.logo-potential-task {
+  margin-right: 1vh;
+  margin-left: 2vh;
+}
+.from {
+  font-size: 1.7vh;
+}
+.potential__task__subject {
+  font-size: 2.5vh;
+  white-space: nowrap;
+  max-width: 105vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+@media screen and (max-width: 1300px) {
+  .potential__task__subject {
+    max-width: 110vh;
+  }
+  .message-body-container {
+    height: 68%;
+    // overflow: auto;
+  }
+  .container-potential-task {
+    width: 130vh;
+    height: 92vh;
+  }
+  .error-container-potential-task {
+    width: 100vh;
+    height: 58vh;
+  }
+  .message-details-container {
+    padding-top: 2vh;
+  }
+
+  .information {
+    max-height: 4vh;
+    font-size: 1.9vh;
+  }
+  .conversation-container {
+    font-size: 2vh;
+  }
+  .collapse-icon-potential-task {
+    margin: 0 3vh 0 auto;
+  }
+  .data {
+    font-size: 1.9vh;
+  }
+  .from {
+    font-size: 1.9vh;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .message-body-container {
+    height: 68%;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,118 @@
+.mail {
+  // display: flex;
+  // flex-direction: row;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+  max-width: 100%;
+  background: linear-gradient(#d9d9d9, #d9d9d9) bottom/ 94% 1px no-repeat;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  .mail-container {
+    display: flex;
+    flex-direction: row;
+
+    .persona {
+      width: 32px;
+      padding-left: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .content {
+      padding: 10px;
+      padding-top: 0;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      box-sizing: border-box;
+      max-height: 100%;
+      .task-id {
+        font-size: 12px;
+        padding: 2px;
+      }
+      .categories {
+        display: flex;
+      }
+      .name {
+        height: 19px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .info-line {
+        height: 19px;
+        padding-top: 1px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow: hidden;
+        font-size: 12px;
+
+        .badge {
+          z-index: 1;
+          height: 18px;
+          width: 69px;
+          position: absolute;
+          right: 5px;
+          top: 10px;
+        }
+      }
+
+      .subject {
+        color: #6264a7;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .subject-unread {
+        color: #6264a7;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .preview {
+        height: 19px;
+        padding-top: 1px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .attachments {
+        display: flex;
+        flex-direction: row;
+        margin-top: 6px;
+
+        .more {
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+}
+.action-conainer {
+  display: flex;
+  visibility: hidden;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1vh;
+}
+
+.mail:hover .action-conainer {
+  visibility: visible;
+}
+
+.date {
+  margin-left: auto;
+  opacity: 0.7;
+}

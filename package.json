@@ -1,0 +1,83 @@
+{
+  "name": "email-teammate-mono",
+  "version": "2.2.2",
+  "description": "",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*/*"
+    ],
+    "nohoist": [
+      "**/subscriptions",
+      "**/subscriptions/**",
+      "**/graph-client",
+      "**/graph-client/**"
+    ]
+  },
+  "resolutions": {
+    "ts-node": "^10.4.0",
+    "typescript": "4.3.5"
+  },
+  "scripts": {
+    "nuke": "rimraf node_modules && rimraf ./packages/*/node_modules && rimraf ./packages/*/*/node_modules",
+    "ngrok": "ngrok start --all --region=eu",
+    "email-teammate": "yarn workspace @harmonie/email-teammate",
+    "email-server": "yarn workspace @harmonie/email-server",
+    "task-board": "yarn workspace @harmonie/task-board",
+    "serverless-subscriptions": "yarn workspace @harmonie/subscriptions",
+    "lint": "eslint packages/**/*.ts*",
+    "start-dev": "concurrently \"yarn email-server start-dev-tunnel\" \"yarn email-server waitForHosts && concurrently 'yarn email-teammate start' 'yarn email-server start-dev'\"",
+    "buildDocker": "yarn email-teammate build && docker build -t teammate-dev . && docker run -it -p 3000:3978 teammate-dev",
+    "start": "yarn email-server start",
+    "build-all": "yarn generate-ts && yarn email-teammate build && yarn task-board build && yarn email-server build",
+    "build-serverless": "yarn serverless-subscriptions build:production",
+    "migrate:dev": "yarn email-server migrate:up && yarn email-server migrate:down",
+    "generate-ts": "yarn email-server generate-schema && yarn email-server generate",
+    "test": "yarn workspace @harmonie/db test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-prepush"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "lint-prepush": {
+    "verbose": true,
+    "tasks": {
+      "!(*generated)/*.{js,jsx,ts,tsx}": [
+        "eslint --max-warnings 0"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "@welldone-software/eslint-plugin": "^0.4.4",
+    "concurrently": "^6.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.0",
+    "lint-prepush": "^2.1.0",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antlr4": "4.8.0",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}

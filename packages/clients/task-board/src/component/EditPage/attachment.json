@@ -1,0 +1,57 @@
+{
+  "type": "Container",
+  "spacing": "Small",
+  "items": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50px",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": " ",
+              "isVisible": false
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "50px",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://www.herzog.ac.il/wp-content/uploads/2017/11/whatsapp-symbol-icon-logo-vector-300x300.png",
+              "height": "50px",
+              "width": "50px"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "attachment.name",
+              "weight": "Bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "humanFileSize(attachment.size)",
+              "size": "Small",
+              "spacing": "Small"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "style": "emphasis",
+  "selectAction": {
+    "type": "Action.OpenUrl",
+    "title": "asdf",
+    "url": "https://www.harmon.ie"
+  }
+}

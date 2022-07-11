@@ -1,0 +1,29 @@
+.search-box-holder {
+  width: 96%;
+  margin: 0 20px;
+  display: flex;
+  .search-box {
+    font-size: 16px !important;
+    flex-grow: 1;
+    padding-right: 42px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .search-box-holder {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .search-box-holder {
+    .ms-Dropdown-container {
+      display: none;
+    }
+    input {
+      padding-left: 10px;
+    }
+    .ms-SearchBox-icon {
+      margin-left: 10px;
+    }
+  }
+}

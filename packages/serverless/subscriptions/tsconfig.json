@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib":["ES2019"],
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@harmonie/db": ["../../shared/db/src"],
+      "@harmonie/graph-client": ["../../shared/graphClient/src"],
+      "@harmonie/common": ["../../shared/common/src"],
+    }
+  }
+}

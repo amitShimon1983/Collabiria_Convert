@@ -1,0 +1,28 @@
+.wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.in {
+    left: -100%;
+  }
+.out {
+    left: 0%;
+}
+
+.filterActions {
+    width: 100%;
+    display: flex;
+    margin-bottom: 7px;
+    
+}

@@ -1,0 +1,31 @@
+extends:
+  - ../../../.eslintrc.yml
+  - plugin:react/recommended
+root: true
+
+plugins:
+  - '@welldone-software'
+  - react-hooks
+
+rules:
+  'react-hooks/rules-of-hooks': warn
+  'react/prop-types': off
+  'react-hooks/exhaustive-deps':
+    - warn
+    
+  'react/jsx-filename-extension':
+    - off
+    - extensions:
+        - '.tsx'
+  
+  'react/display-name':
+    - off
+
+  '@welldone-software/modules-engagement':
+    - off
+    - moduleInnerPaths: []
+      ignoreInnerPathsForModules:
+        - shared
+      modulesLevels:
+        shared: -1
+        app: 4

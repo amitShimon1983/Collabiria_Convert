@@ -1,0 +1,173 @@
+.MainPage {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  &.inactive {
+    opacity: 0;
+  }
+
+  .settings {
+    position: absolute;
+    z-index: 10;
+    top: 0px;
+    right: 0px;
+  }
+
+  .subscribe-container {
+    position: absolute;
+    right: 1%;
+    top: -8px;
+    z-index: 10;
+    display: flex;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .mail-container {
+    padding-top: 10px;
+  }
+
+  .MobileSidePane {
+    display: none;
+  }
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden;
+
+    .side {
+      width: 200px;
+    }
+
+    .list {
+      flex-grow: 1;
+      padding: 0px;
+      flex-direction: column;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+
+      .search-description {
+        font: normal normal 600 16px/22px;
+        font-weight: bold;
+        padding: 14px 20px;
+      }
+
+      .folder-header {
+        text-align: left;
+        font: normal normal 600 16px/22px;
+        color: #333333;
+        padding: 10px 20px;
+      }
+
+      .selected-folder-name {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px 42px;
+      }
+
+      .mails-list {
+        flex-grow: 1;
+        overflow-y: hidden;
+      }
+    }
+  }
+
+  .footer {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0px 10px;
+    flex-shrink: 0;
+    margin-left: 78px;
+
+    .reset {
+      position: absolute;
+      left: 50%;
+    }
+
+    .emails-left-text {
+      display: none;
+      font-weight: bold;
+    }
+
+    .exit-walkthrough {
+      cursor: pointer;
+      text-align: left;
+      text-decoration: underline;
+      font: normal normal 600 14px/16px;
+      letter-spacing: 0px;
+      color: #6264a7;
+      opacity: 1;
+      margin-bottom: 8px;
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .MainPage {
+    .SidePane {
+      display: none;
+    }
+    .MobileSidePane {
+      display: block;
+    }
+    .search-description {
+      margin-left: 40px;
+    }
+    .subscribe-container {
+      right: 0px;
+      padding-right: 0px;
+      span:last-child {
+        border-bottom-right-radius: 0px !important;
+      }
+      .emails-left-text {
+        display: none;
+      }
+    }
+    .mail {
+      background: linear-gradient(#d9d9d9, #d9d9d9) bottom/100% 1px no-repeat;
+      width: 100%;
+      .persona {
+        padding-left: 10px;
+      }
+    }
+    .search-box-holder {
+      margin: 0px;
+      width: 100%;
+    }
+    .footer {
+      margin-left: 0px;
+      justify-content: flex-start;
+
+      .ms-Toggle {
+        margin-bottom: 0px;
+      }
+
+      .emails-left-text {
+        display: block;
+      }
+
+      .exit-walkthrough.hidden {
+        display: none;
+      }
+    }
+  }
+}
+.overrideMailCss {
+  .mail-container .content {
+    font-size: 14px;
+    .info-line {
+      font-size: 14px;
+    }
+  }
+}
