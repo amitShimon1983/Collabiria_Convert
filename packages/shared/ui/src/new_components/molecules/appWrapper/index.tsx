@@ -16,8 +16,6 @@ export const AppProvider: FunctionComponent<AppProviderProps> = ({ children, app
       setCustomizations(ctx);
     }
   }, []);
-  console.log(appConfig);
-
   return (
     <StoreProvider appConfig={appConfig} needToRefresh={needToRefresh}>
       <Customizer themeName={themeName} customizations={customizations}>
