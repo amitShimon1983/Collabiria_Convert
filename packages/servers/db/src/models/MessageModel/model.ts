@@ -106,14 +106,10 @@ export class Message {
     return this.find({ dismissed: false }).lean();
   }
 
-  public static fromGraphMessage(graphMessage: any): Message {
+  public static fromGraphMessage(graphMessage: any, sanitizedBody: boolean = true): Message {
     const { id, createdDateTime, lastModifiedDateTime, receivedDateTime, sentDateTime, attachments, ...rest } =
       graphMessage;
-    const domTree = new JSDOM(graphMessage.body.content);
-    const domDocument = domTree.window.document;
-    putGlobalCssToInlineStyles(domDocument as any);
-    const updatedBodyHtml = domTree.serialize();
-
+    const updatedBodyHtml = this.sanitizeBody(graphMessage, sanitizedBody);
     return {
       ...rest,
       body: {
@@ -130,5 +126,15 @@ export class Message {
         attachmentId: id,
       })),
     };
+  }
+  public static sanitizeBody(graphMessage: any, sanitizedBody: boolean) {
+    let updatedBodyHtml = graphMessage.body.content;
+    if (sanitizedBody) {
+      const domTree = new JSDOM(graphMessage.body.content);
+      const domDocument = domTree.window.document;
+      putGlobalCssToInlineStyles(domDocument as any);
+      updatedBodyHtml = domTree.serialize();
+    }
+    return updatedBodyHtml;
   }
 }

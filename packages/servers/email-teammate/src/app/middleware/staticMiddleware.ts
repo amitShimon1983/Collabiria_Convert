@@ -26,10 +26,10 @@ export default (app: Application, appConfig: Configuration) => {
     console.log('renderIndex URL', req.url);
 
     res.render('index.html', {
-      VITE_AZURE_CLIENT_ID: appConfig.azureClientId,
-      VITE_AZURE_CLIENT_SCOPE: appConfig.azureClientScope,
-      VITE_SERVER_BASE_URL: appConfig.serverBaseUrl,
-      VITE_EXTERNAL_SITE_END_POINT: appConfig.externalSiteUrl,
+      REACT_APP_AZURE_CLIENT_ID: appConfig.azureClientId,
+      REACT_APP_AZURE_CLIENT_SCOPE: appConfig.azureClientScope,
+      REACT_APP_SERVER_BASE_URL: appConfig.serverBaseUrl,
+      REACT_APP_EXTERNAL_SITE_END_POINT: appConfig.externalSiteUrl,
     });
   };
 
@@ -42,9 +42,9 @@ export default (app: Application, appConfig: Configuration) => {
     console.log('renderEmailTeammate PATH', path.join(__dirname, '../../../', 'email-teammate'));
     console.log('renderEmailTeammate URL', req.url);
     res.render('index.html', {
-      VITE_AZURE_CLIENT_ID: appConfig.azureClientId,
-      VITE_AZURE_CLIENT_SCOPE: appConfig.azureClientScope,
-      VITE_SERVER_BASE_URL: appConfig.serverBaseUrl,
+      REACT_APP_AZURE_CLIENT_ID: appConfig.azureClientId,
+      REACT_APP_AZURE_CLIENT_SCOPE: appConfig.azureClientScope,
+      REACT_APP_SERVER_BASE_URL: appConfig.serverBaseUrl,
     });
   };
 

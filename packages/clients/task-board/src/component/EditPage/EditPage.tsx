@@ -36,7 +36,7 @@ const EditPage: FunctionComponent<EditPageProps> = ({ selectedMail, onBack }) =>
   return (
     <div className={`${classes['edit-page']} ${selectedMail && classes['active']}`}>
       {!user && <Spinner label={'Getting info...'} />}
-      {selectedMail?.body && !attachmentsLoading ? (
+      {selectedMail?.messageId && !attachmentsLoading ? (
         <React.Fragment>
           <div style={isMobile ? { overflowY: 'hidden' } : {}} className={classes['card']}>
             {isMobile ? (

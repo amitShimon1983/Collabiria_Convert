@@ -3,6 +3,7 @@ import { GraphClient } from '@harmonie/server-shared';
 import createLogger from '@harmonie/server-shared/src/logger/logger';
 import { GetMailsArgs } from 'src/apollo/resolvers/message/types';
 const logger = createLogger({});
+export const EXTENDED_MAIL_ID = 'String {ddfc984d-b826-40d7-b48b-57002df800e5} Name DismissEmail';
 export async function getEmailDataById(token: string, itemId: string, from: any) {
   const client = new GraphClient(token);
   const message = await client.getEmailData(itemId, from);
@@ -22,8 +23,6 @@ export const getAllMails = async ({
   searchTerm,
   scope,
   header,
-  withInline = true,
-  withTopResults,
 }: {
   token: string;
   user: any;
@@ -35,16 +34,12 @@ export const getAllMails = async ({
   searchTerm?: string | null;
   scope?: string | null;
   header?: { [key: string]: any };
-  withInline?: boolean;
-  withTopResults?: boolean;
 }) => {
-  const expandVal = `attachments($select=id,name,size,contentType,isInline,microsoft.graph.fileAttachment/contentId)`;
-
+  const expandVal = `attachments($select=id,name,size,contentType,isInline,microsoft.graph.fileAttachment/contentId),singleValueExtendedProperties($filter=id eq '${EXTENDED_MAIL_ID}')`;
   let mailResults: any[] = [];
   let results;
   let innerEndCursor = endCursor;
   let keepSearch = true;
-  top = 50;
 
   try {
     while (keepSearch) {
@@ -62,17 +57,18 @@ export const getAllMails = async ({
             header,
             expandVal,
           });
-      const tempEmails = results.value;
-      innerEndCursor = !!results['@odata.nextLink']
-        ? getPathAndQuery(results['@odata.nextLink'])
-        : results['@odata.nextLink'];
-      mailResults = [...mailResults, ...tempEmails];
-      keepSearch = mailResults.length < 20 && !!results['@odata.nextLink'];
+      ({ mailResults, keepSearch, innerEndCursor } = filterDismissedMessages(
+        results,
+        mailResults,
+        keepSearch,
+        top,
+        innerEndCursor
+      ));
     }
     results.value = mailResults;
-    return {
+    const queryRes = {
       isAuthorized: true,
-      results: results?.value?.map(Message.fromGraphMessage),
+      results: results?.value?.map((message: any) => Message.fromGraphMessage(message, false)),
       pageInfo: {
         hasNextPage: !!results['@odata.nextLink'],
         endCursor: !!results['@odata.nextLink']
@@ -80,10 +76,40 @@ export const getAllMails = async ({
           : results['@odata.nextLink'],
       },
     };
+    return queryRes;
   } catch (error) {
     throw error;
   }
 };
+const isDismissedFilter = ({ id, value }: { id: string; value: string }) => {
+  const isFiltered =
+    (id === 'String {ddfc984d-b826-40d7-b48b-57002df800e5} Name DesmissEmail' && value === 'ignor') ||
+    (value?.includes('taskboardId') && id === EXTENDED_MAIL_ID);
+  return isFiltered;
+};
+function filterDismissedMessages(
+  results: any,
+
+  mailResults: any[],
+  keepSearch: boolean,
+  top: number | undefined,
+  innerEndCursor: string | undefined
+) {
+  if (results?.value) {
+    results.value = results?.value?.filter(
+      (mail: any) => !mail?.singleValueExtendedProperties?.find(isDismissedFilter)
+    );
+    mailResults = [...mailResults, ...results.value];
+
+    keepSearch = mailResults.length < (top || 20) && !!results['@odata.nextLink'];
+    if (keepSearch) {
+      innerEndCursor = !!results['@data.nextLink']
+        ? getPathAndQuery(results['@odata.nextLink'])
+        : results['@odata.nextLink'];
+    }
+  }
+  return { mailResults, keepSearch, innerEndCursor };
+}
 
 export async function getFolders({ token, emailAddress }: { token: string; emailAddress: string }) {
   const client = new GraphClient(token);
@@ -165,13 +191,11 @@ async function getMailsForFolder({
     searchTerm,
     filterQuery,
     token,
-    top: 20,
+    top: 50,
     endCursor,
     orderByProperty: 'receivedDateTime',
     orderByOrder: 'desc',
     header: { key: 'Prefer', value: "outlook.body-content-type='html'" },
-    withInline: withInline,
-    withTopResults,
   });
 
   return results;

@@ -1,10 +1,10 @@
-import { MessagePoolModel, saveFilesToDb } from '@harmonie/server-db';
+import { MessageModel, saveFilesToDb } from '@harmonie/server-db';
 import { flatten } from 'lodash';
 
 const { serverUrl } = process.env;
 
 const getAllDbInlineAttachments = async (conversationId: string, taskBoard: string): Promise<any[]> => {
-  const messages = await MessagePoolModel.find({ conversationId, taskBoard });
+  const messages = await MessageModel.find({ conversationId, taskBoard });
   if (!messages || !messages.length) {
     return [];
   }

@@ -7,12 +7,12 @@ export const GET_MAILS_QUERY = gql`
         messageId
         mailboxId
         dismissed
-        internetMessageId
-        conversationId
-        conversationIndex
+        # internetMessageId
+        # conversationId
+        # conversationIndex
         parentFolderId
-        createdDateTime
-        lastModifiedDateTime
+        # createdDateTime
+        # lastModifiedDateTime
         receivedDateTime
         sentDateTime
         hasAttachments
@@ -35,30 +35,30 @@ export const GET_MAILS_QUERY = gql`
             name
           }
         }
-        bccRecipients {
-          emailAddress {
-            address
-            name
-          }
-        }
-        ccRecipients {
-          emailAddress {
-            address
-            name
-          }
-        }
-        toRecipients {
-          emailAddress {
-            address
-            name
-          }
-        }
-        body {
-          content
-          contentType
-        }
+        # bccRecipients {
+        #   emailAddress {
+        #     address
+        #     name
+        #   }
+        # }
+        # ccRecipients {
+        #   emailAddress {
+        #     address
+        #     name
+        #   }
+        # }
+        # toRecipients {
+        #   emailAddress {
+        #     address
+        #     name
+        #   }
+        # }
+        # body {
+        #   content
+        #   contentType
+        # }
         bodyPreview
-        importance
+        # importance
         isDraft
         isRead
         webLink
