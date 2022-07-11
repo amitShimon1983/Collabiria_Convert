@@ -1,0 +1,14 @@
+{
+  "name": "@harmonie/server-infrastructure",
+  "version": "1.0.0",
+  "description": "Collabria infrastructure",
+  "author": "harmon.ie",
+  "private": true,
+  "scripts": {
+    "deploy-general": "sh scripts/deploy-general.sh",
+    "deploy-stage": "sh scripts/deploy-stage.sh",
+    "decompile": "az bicep decompile --file 1.json"
+  },
+  "keywords": [],
+  "license": "ISC"
+}

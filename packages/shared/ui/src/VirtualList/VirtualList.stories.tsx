@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import VirtualList, { CustomRowRendererProps } from './VirtualList';
 import { IndexRange } from 'react-virtualized';
-import { utils } from '@harmon.ie/collabria-frontend-shared';
+import { utils } from '@harmonie/servercollabria-frontend-shared';
 import { Box } from '../Box';
 import { Skeleton } from '../Skeleton';
 import { Text } from '../Text';

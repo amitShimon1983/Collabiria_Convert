@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-// import { Box, Text, Button } from '@harmon.ie/collabria-frontend-storybook';
+// import { Box, Text, Button } from '@harmonie/servercollabria-frontend-storybook';
 // import {  } from 'react-router-dom';
 // import { appContextVar, AuthProvider } from '../../services';
 interface FinishAuthProps {

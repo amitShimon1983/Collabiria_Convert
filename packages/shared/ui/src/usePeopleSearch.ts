@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { gql, useQuery } from '@harmon.ie/collabria-frontend-shared';
+import { gql, useQuery } from '@harmonie/servercollabria-frontend-shared';
 
 export const SEARCH_PEOPLE_QUERY = gql`
   query findPeople($text: String) {

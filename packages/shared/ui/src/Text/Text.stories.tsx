@@ -1,9 +1,9 @@
 import React from 'react';
 import { Stack } from '@fluentui/react';
 import { Story } from '@storybook/react';
-import { theme } from '@harmon.ie/collabria-frontend-shared';
+import { theme } from '@harmonie/servercollabria-frontend-shared';
 import Text, { TextProps, H1, H2, H3, H4, H5, H6 } from './Text';
-import { getCustomizations } from '@harmon.ie/collabria-frontend-shared/src/services/theme/theme';
+import { getCustomizations } from '@harmonie/servercollabria-frontend-shared/src/services/theme/theme';
 
 export const Template: Story<TextProps> = (args: any) => {
   const {

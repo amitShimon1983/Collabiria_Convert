@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2019"],
+    "noEmit": false,
+    "outDir": "build",
+    "allowJs": true,
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@harmonie/server-db": ["../../db/src"],
+      "@harmonie/server-shared": ["../../shared/src"],
+      "@harmonie/server-services": ["../../services/src"]
+    }
+  },
+  "include": ["src", "../shared/src/dateTimeHelper.ts"]
+}

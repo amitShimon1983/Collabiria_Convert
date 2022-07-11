@@ -1,0 +1,13 @@
+schema:
+  - ./schema.gql
+generates:
+  ../../frontend/shared/src/schema.types.ts:
+    plugins:
+      - typescript
+    config:
+      immutableTypes: false
+      transformUnderscore: true
+      maybeValue: T | undefined
+hooks:
+  afterAllFileWrite:
+    - eslint --fix

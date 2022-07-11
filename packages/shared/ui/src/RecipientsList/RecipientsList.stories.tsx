@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { utils } from '@harmon.ie/collabria-frontend-shared';
+import { utils } from '@harmonie/servercollabria-frontend-shared';
 import { IPersonaProps, ISearchBox, SearchBox, Stack } from '@fluentui/react';
 import { Story } from '@storybook/react';
 import styled from 'styled-components';

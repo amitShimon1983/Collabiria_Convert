@@ -1,0 +1,1 @@
+az deployment sub create -f ./src/general.bicep -l "${LOCATION}"

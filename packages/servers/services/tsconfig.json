@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "declaration": true,
+    "sourceMap": true,
+    "composite": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "@harmonie/server-shared": ["../../shared/src"],
+      "@harmonie/server-db": ["../../db/src"]
+    }
+  },
+  "include": ["src"]
+}

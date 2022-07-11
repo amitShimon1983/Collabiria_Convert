@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-// import { Box, Text, Button } from '@harmon.ie/collabria-frontend-storybook';
+// import { Box, Text, Button } from '@harmonie/servercollabria-frontend-storybook';
 
 interface LoginProps {
   handleLogin?: () => void;

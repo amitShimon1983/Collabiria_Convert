@@ -1,0 +1,1 @@
+az deployment sub create -f ./src/stage.bicep -l "${LOCATION}" -p stage="${STAGE}" -c
