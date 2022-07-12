@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text } from 'office-ui-fabric-react';
 // import './ErrorState.scss';
 
@@ -13,14 +13,11 @@ const ErrorState = ({
   className?: string;
   absolute?: boolean;
 }) => {
-  const [appError, setAppError] = useState<string>();
-  useEffect(() => {
-    if (error?.message && !error?.message?.includes('token T in JSON')) {
-      setAppError(error?.message);
-    } else {
-      setAppError('Something went wrong. Please try again later.');
-    }
-  }, [error]);
+  let componentError = 'Something went wrong. Please try again later.';
+  if (error?.message && !error?.message?.includes('token T in JSON')) {
+    componentError = error?.message;
+  }
+
   return (
     <div
       className={`${absolute ? 'absolute-error-state' : ''} ${
@@ -29,7 +26,7 @@ const ErrorState = ({
     >
       <img src="https://static-teammate.azureedge.net/static/cant-share-mail.svg" alt={'failed'} />
       <Text variant="medium" className={`text`}>
-        {appError ? appError : ''}
+        {componentError}
       </Text>
     </div>
   );
