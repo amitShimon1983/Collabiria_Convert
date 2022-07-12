@@ -8,6 +8,10 @@
   "scripts": {
     "build": "rm -rf ./build && tsc"
   },
+  "engines": {
+    "npm": ">=6.14.15",
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "@azure/identity": "^2.0.4",
     "@azure/keyvault-secrets": "^4.3.0",

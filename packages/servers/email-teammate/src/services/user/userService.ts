@@ -7,8 +7,8 @@ export const createUser = async (user: User) => {
   return await UserModel.create(user);
 };
 
-export const getUser = async (email: string) => {
-  return UserModel.findOne({ email });
+export const getUser = async (userObjectId: string) => {
+  return UserModel.findById(userObjectId);
 };
 
 export const updateUser = async (userObjectId: string, user: any) => {

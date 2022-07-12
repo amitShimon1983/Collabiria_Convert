@@ -40,3 +40,7 @@ export const updateTeam = async (teamObjectId: string, team: Team) => {
 export const getOrganizationTeams = async (organizationObjectId: string) => {
   return TeamModel.find({ organization: new Types.ObjectId(organizationObjectId) });
 };
+
+export const getOrganizationsTeams = async (organizationObjectIds: string[]) => {
+  return TeamModel.find({ organization: { $in: organizationObjectIds.map((id: string) => new Types.ObjectId(id)) } });
+};

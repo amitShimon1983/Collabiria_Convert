@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { Message } from '@microsoft/microsoft-graph-types';
 
@@ -24,11 +23,6 @@ class GraphClient {
     return await this.graphClient.api(baseUrl).get();
   }
 
-  async getPhoto(email?: string) {
-    const graphEndpoint = `https://graph.microsoft.com/v1.0/users/${email}/photos/48x48/$value`;
-    const file = await this.fetchFile(graphEndpoint);
-    return file ? `data:image/png;base64,${Buffer.from(file).toString('base64')}` : null;
-  }
   async getEmailData(itemId: string, from?: string, headers?: { [key: string]: string }) {
     const baseUrl = !from ? `/me/messages/${itemId}` : `/users/${from}/messages/${itemId}`;
 
@@ -39,49 +33,6 @@ class GraphClient {
 
     return await fullQuery.get();
   }
-  async fetch(graphEndpoint: string) {
-    try {
-      const response = await axios(graphEndpoint);
-      // eslint-disable-next-line no-console
-      // console.log('response', response);
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async fetchFile(graphEndpoint: string) {
-    try {
-      const response = await axios(graphEndpoint, {
-        headers: { Authorization: `Bearer ${this._token}` },
-        responseType: 'arraybuffer',
-      });
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  // async getPhoto(email?: string) {
-  //   const graphEndpoint = `https://graph.microsoft.com/v1.0/users/${email}/photos/48x48/$value`;
-  //   const blob = await this.getPeopleImageBlob(graphEndpoint);
-  //   if (blob.type === 'application/json') {
-  //     return null;
-  //   }
-  //   return await this.blobToBase(blob);
-  // }
-
-  async getPeopleImageBlob(url: string) {
-    let response = await fetch(url, {
-      headers: { Authorization: `Bearer ${this._token}` },
-    });
-    return await response.blob();
-  }
-
-  // private async blobToBase(blob: Blob) {
-  //   let buffer = Buffer.from(await blob.text());
-  //   return 'data:' + blob.type + ';base64,' + buffer.toString('base64');
-  // }
 
   public async getMe() {
     return await this.graphClient.api('/me').get();
@@ -156,6 +107,7 @@ class GraphClient {
   public async getAllSubscriptions() {
     return await this.graphClient.api('/subscriptions').get();
   }
+
   public async getSubscriptionById(id: string) {
     return await this.graphClient.api(`/subscriptions/${id}`).get();
   }
@@ -177,6 +129,7 @@ class GraphClient {
   public async deleteSubscription(id: string) {
     return await this.graphClient.api(`/subscriptions/${id}`).delete();
   }
+
   async updateMessage({
     from,
     message,
@@ -196,7 +149,7 @@ class GraphClient {
       throw { ...err, message: `Error updating message: ${err.message}` };
     }
   }
-  // users
+
   public async getMailMessage(mailboxId: string, resourceId: string): Promise<Message> {
     const path = `users/${mailboxId}/messages/${resourceId}`;
     const properties = [
@@ -238,6 +191,46 @@ class GraphClient {
     const path = `users/${mailboxId}/messages/$count`;
     const executableQuery = this.graphClient.api(path);
     return await executableQuery.get();
+  }
+
+  public async getGraphMessages({
+    emailAddress,
+    filterQuery,
+    top = 20,
+    orderByProperty = 'sentDateTime',
+    orderByOrder = 'asc',
+    searchTerm = null,
+    scope,
+    header,
+    expandVal,
+  }: {
+    emailAddress?: string;
+    filterQuery?: string;
+    top?: number;
+    orderByProperty?: string;
+    orderByOrder?: 'asc' | 'desc';
+    searchTerm?: string | null;
+    scope?: any | null;
+    header?: { [key: string]: any };
+    expandVal?: string;
+  }) {
+    const baseUrl = scope ? `users/${emailAddress}/mailfolders/${scope}/messages` : `users/${emailAddress}/messages`;
+
+    const selectVal =
+      'body,receivedDateTime,subject,categories,isRead,from,toRecipients,sender,sentDateTime,bodyPreview,webLink,inferenceClassification,lastModifiedDateTime,conversationId';
+
+    const emails = await this.executeCall({
+      url: baseUrl,
+      selectVal,
+      filterVal: filterQuery,
+      expandVal,
+      pagging: top,
+      searchTerm: searchTerm,
+      orderByProperty,
+      orderByOrder,
+      header,
+    });
+    return emails;
   }
 }
 

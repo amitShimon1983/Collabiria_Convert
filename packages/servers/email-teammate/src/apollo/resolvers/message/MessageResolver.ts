@@ -1,14 +1,14 @@
-import { times } from 'lodash';
-import { v4 } from 'uuid';
-import { Arg, Query, Mutation, Resolver, Ctx } from 'type-graphql';
-import { MessageModel, Message, AttachmentModel, utils } from '@harmonie/server-db';
-import { messageService } from '../../../services';
+import { Arg, Query, Resolver, Ctx, Mutation } from 'type-graphql';
+import { MessageModel, Message } from '@harmonie/server-db';
+import { graphMessageService, messageService } from '../../../services';
 import {
   createMessagesInput,
   GetEmailAttachmentsArgs,
   GetEmailDataArgs,
   GetMailsArgs,
   getMessagesInput,
+  getTeamRootMessagesInput,
+  getTeamRootMessagesOutput,
   InlineAttachment,
   MailFolder,
   MailQuery,
@@ -18,92 +18,66 @@ import {
 export default class MessageResolver {
   @Query(() => Message)
   async getMessage(@Arg('args') args: getMessagesInput) {
-    const { messageId } = args;
-    return MessageModel.findOne({ messageId });
+    const { messageObjectId } = args;
+    return messageService.getMessage(messageObjectId);
   }
 
   @Query(() => Message, { nullable: true })
   async getEmailById(@Arg('args') args: GetEmailDataArgs, @Ctx() context: any) {
     const { token, user } = context;
-    return await messageService.getEmailDataById(token, args.itemId as string, user.upn);
+    return await graphMessageService.getEmailDataById(token, args.itemId as string, user.upn);
   }
 
   @Query(() => [MailFolder])
   async getFolders(@Ctx() context: any) {
     const { token, user } = context;
-    const result = await messageService.getFolders({ token, emailAddress: user.upn });
+    const result = await graphMessageService.getFolders({ token, emailAddress: user.upn });
     return result;
   }
 
   @Query(() => MailQuery)
   async getMails(@Ctx() context: any, @Arg('args') args: GetMailsArgs) {
     const { token, user } = context;
-    return await messageService.getMails({ token, user, args });
+    return await graphMessageService.getMails({ token, user, args });
   }
 
   @Query(() => [Message])
   async getDismissedMessages() {
     return MessageModel.getDismissed();
   }
+
   @Query(() => [InlineAttachment])
   async getEmailAttachments(@Arg('args') args: GetEmailAttachmentsArgs, @Ctx() context: any) {
-    const { logger, token, user } = context;
-    return await messageService.getEmailAttachments({
+    const { token, user } = context;
+    return await graphMessageService.getEmailAttachments({
       itemId: args.id as string,
       token,
       emailAddress: user.upn,
     });
   }
+
   @Mutation(() => Message)
-  async createMessage(@Arg('args') args: createMessagesInput) {
-    const { body } = args;
-    const result = await utils.runWithTransaction<Message>(async session => {
-      const message: Message = {
-        messageId: `messageId_${v4()}`,
-        teamId: `teamId_${v4()}`,
-        internetMessageId: `internetMessageId_${new Date().getTime()}`,
-        conversationId: `conversationId_${new Date().getTime()}`,
-        conversationIndex: `conversationIndex${new Date().getTime()}`,
-        mailboxId: 'yairov@harmon.ie',
-        parentFolder: '',
-        parentFolderId: '',
-        receivedDateTime: new Date(),
-        sentDateTime: new Date(),
-        createdDateTime: new Date(),
-        lastModifiedDateTime: new Date(),
-        subject: 'Some Subject',
-        body: {
-          content: body,
-          contentType: 'html',
-        },
-        from: {
-          emailAddress: { name: 'Amit Shimon', address: 'amitg@harmon.ie' },
-        },
-        sender: {
-          emailAddress: { name: 'Amit Shimon', address: 'amitg@harmon.ie' },
-        },
-        toRecipients: [
-          {
-            emailAddress: { name: 'Yair Oval', address: 'yairov@harmon.ie' },
-          },
-        ],
-      };
+  async createMessage(@Arg('args') args: createMessagesInput, @Ctx() context: any) {
+    const { token, user } = context;
+    const { body, messageId, teamId } = args;
+    const message = await graphMessageService.getEmailDataById(token, messageId, user.upn);
 
-      const [messageInstance] = await MessageModel.create([message], { session });
+    if (!message) {
+      throw new Error('message does not exist');
+    }
 
-      const attachments = times(4).map(() => ({
-        attachmentId: `attachmentId_${v4()}`,
-        name: `name_${v4()}`,
-        message: messageInstance,
-      }));
-
-      const attachmentInstances = await AttachmentModel.create(attachments, { session });
-      messageInstance.attachments = attachmentInstances;
-      await messageInstance.save();
-
-      return messageInstance;
+    return await messageService.createMessage(teamId, {
+      ...message,
+      body: {
+        ...message.body,
+        content: body,
+      },
     });
+  }
 
-    return result;
+  @Query(() => getTeamRootMessagesOutput)
+  async getTeamRootMessages(@Arg('args') args: getTeamRootMessagesInput) {
+    const { teamObjectId, searchText, filters, skip, limit } = args;
+    return messageService.getTeamRootMessages(teamObjectId, searchText, filters, skip, limit);
   }
 }

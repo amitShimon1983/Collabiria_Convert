@@ -30,6 +30,12 @@ type EmailAddress {
   name: String
 }
 
+input Filters {
+  from: String
+  subject: String
+  to: String
+}
+
 input FindPeopleArgs {
   text: String
 }
@@ -113,6 +119,7 @@ type Message {
   internetMessageId: String
   isDraft: Boolean
   isRead: Boolean
+  isRoot: Boolean
   lastModifiedDateTime: DateTime
   mailboxId: String
   messageId: String
@@ -123,6 +130,7 @@ type Message {
   sender: Recipient
   sentDateTime: DateTime
   subject: String
+  team: Team
   teamId: String
   toRecipients: [Recipient]
   webLink: String
@@ -182,9 +190,12 @@ type Query {
   getOrganization(args: getOrganizationInput): Organization
   getOrganizationMembers(args: getOrganizationMembersInput): [OrganizationMemberOutput]
   getOrganizationTeams(args: getOrganizationTeamsInput): [Team]
+  getOrganizationsTeams(args: getOrganizationsTeamsInput): [Team]
   getProfilePicture(args: GetProfilePictureArgs): ProfilePicture
   getTeam(args: getTeamInput): Team
   getTeamMembers(args: getTeamMembersInput): [TeamMemberOutput]
+  getTeamRootMessages(args: getTeamRootMessagesInput): getTeamRootMessagesOutput
+  getUser(args: getUserInput): User
   getUserOrganizations(args: getUserOrganizationsInput): [OrganizationMemberOutput]
 }
 
@@ -240,6 +251,7 @@ input addUserToTeamInput {
 input createMessagesInput {
   body: String
   messageId: String
+  teamId: String
 }
 
 input createOrganizationInput {
@@ -258,7 +270,7 @@ input getAttachmentsInput {
 }
 
 input getMessagesInput {
-  messageId: String
+  messageObjectId: String
 }
 
 input getOrganizationInput {
@@ -274,6 +286,10 @@ input getOrganizationTeamsInput {
   organizationObjectId: String
 }
 
+input getOrganizationsTeamsInput {
+  organizationObjectIds: [String]
+}
+
 input getTeamInput {
   teamObjectId: String
 }
@@ -281,6 +297,26 @@ input getTeamInput {
 input getTeamMembersInput {
   role: String
   teamObjectId: String
+}
+
+input getTeamRootMessagesInput {
+  filters: Filters
+  limit: Float
+  searchText: String
+  skip: Float
+  teamObjectId: String
+}
+
+type getTeamRootMessagesOutput {
+  endCursor: Float
+  hasNextPage: Boolean
+  page: Float
+  records: [Message]
+  total: Float
+}
+
+input getUserInput {
+  userObjectId: String
 }
 
 input getUserOrganizationsInput {

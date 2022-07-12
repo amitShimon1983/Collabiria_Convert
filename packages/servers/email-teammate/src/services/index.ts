@@ -7,3 +7,4 @@ export * from './teamMember';
 export * from './people';
 export * from './message';
 export * from './geography';
+export * from './conversation';

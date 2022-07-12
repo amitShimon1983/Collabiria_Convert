@@ -4,7 +4,7 @@ import { logger } from '@harmonie/server-shared';
 import { jwtProvider } from './index';
 import { verifyToken } from './jwtProvider';
 import { CookieType } from '../../consts';
-import { cryptoClient, graphRestClient } from '../../clients';
+import { cryptoClient, microsoftOAuthClient } from '../../clients';
 import { geographyService } from '../geography';
 import { userService } from '../user';
 import { IAuthenticationModel } from '../../models';
@@ -116,12 +116,12 @@ export const getTokenFromCode = async (
   redirectUri: string,
   userGeography?: { timezone: string; utcOffset: string }
 ) => {
-  const { data, response } = await graphRestClient.getTokenFromCode('common', redirectUri, code);
+  const { data, response } = await microsoftOAuthClient.getTokenFromCode('common', redirectUri, code);
   return await formatResponseFromGraphAuth({ response, data, userGeography, redirectUri });
 };
 
 export const refreshAccessToken = async (refreshToken: string, redirectUri: string) => {
-  const { data, response } = await graphRestClient.refreshToken('common', redirectUri, refreshToken);
+  const { data, response } = await microsoftOAuthClient.refreshToken('common', redirectUri, refreshToken);
   return await formatResponseFromGraphAuth({ response, data, redirectUri });
 };
 

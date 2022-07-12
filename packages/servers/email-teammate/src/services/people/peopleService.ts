@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import { GraphClient, logger } from '@harmonie/server-shared';
+import { GraphRestClient, logger } from '@harmonie/server-shared';
 import { map, get, compact } from 'lodash';
 import fetch from 'node-fetch';
 
@@ -39,8 +39,8 @@ class PeopleService {
   async getMailPersonPhoto({ token, principalName }: { token: string; principalName?: string }) {
     this._logger.info({ principalName }, 'peopleService.getMailPersonPhoto called');
     try {
-      const client = new GraphClient(token);
-      const photo = await client.getPhoto(principalName);
+      const client = new GraphRestClient(token);
+      const photo = principalName ? await client.getPhoto(principalName) : '';
       if (!photo) {
         this._logger.warn({ principalName }, 'peopleService.getMailPersonPhoto returned empty');
       }

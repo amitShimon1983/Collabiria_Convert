@@ -10,3 +10,4 @@ export * from './dateTimeHelper';
 export * from './dom';
 export { default as Crypto } from './crypto';
 export { default as logger } from './logger';
+export { default as MicrosoftOAuth } from './microsoftOAuth';

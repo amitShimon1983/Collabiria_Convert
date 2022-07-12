@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 import { prop, Ref, index, ReturnModelType, modelOptions } from '@typegoose/typegoose';
 import { ID, ObjectType, Field } from 'type-graphql';
 import { Importance, Body, Recipient } from './types';
+import { htmlSanitize } from '@harmonie/server-shared';
 import { Attachment } from '../AttachmentModel';
-import { htmlSanitize, putGlobalCssToInlineStyles } from '@harmonie/server-shared';
-import { JSDOM } from 'jsdom';
-@index({ teamId: 1, mailboxId: 1, messageId: 1 }, { unique: true })
+import { Team } from '../TeamModel';
+@index({ mailboxId: 1, messageId: 1, team: 1 }, { unique: true })
 @index({ from: 1 })
 @index({ toRecipients: 1 })
 @index({ subject: 1 })
@@ -101,6 +101,12 @@ export class Message {
   @Field(() => [Recipient])
   @prop({ type: () => [Recipient] })
   ccRecipients?: Recipient[];
+  @Field(() => Team)
+  @prop({ ref: () => Team })
+  team?: Ref<Team>;
+  @Field(() => Boolean)
+  @prop({ type: () => Boolean, default: false })
+  isRoot?: boolean;
 
   public static async getDismissed(this: ReturnModelType<typeof Message>) {
     return this.find({ dismissed: false }).lean();
@@ -109,12 +115,12 @@ export class Message {
   public static fromGraphMessage(graphMessage: any, sanitizedBody: boolean = true): Message {
     const { id, createdDateTime, lastModifiedDateTime, receivedDateTime, sentDateTime, attachments, ...rest } =
       graphMessage;
-    const updatedBodyHtml = this.sanitizeBody(graphMessage, sanitizedBody);
+
     return {
       ...rest,
       body: {
         ...graphMessage.body,
-        content: htmlSanitize(updatedBodyHtml),
+        content: this.sanitizeBody(graphMessage, sanitizedBody),
       },
       createdDateTime: createdDateTime ? new Date(createdDateTime) : null,
       lastModifiedDateTime: lastModifiedDateTime ? new Date(lastModifiedDateTime) : null,
@@ -130,10 +136,7 @@ export class Message {
   public static sanitizeBody(graphMessage: any, sanitizedBody: boolean) {
     let updatedBodyHtml = graphMessage.body.content;
     if (sanitizedBody) {
-      const domTree = new JSDOM(graphMessage.body.content);
-      const domDocument = domTree.window.document;
-      putGlobalCssToInlineStyles(domDocument as any);
-      updatedBodyHtml = domTree.serialize();
+      updatedBodyHtml = htmlSanitize(updatedBodyHtml);
     }
     return updatedBodyHtml;
   }

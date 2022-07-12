@@ -1,43 +1,47 @@
+import path from 'path';
+import { HeadersInit } from 'node-fetch';
 import RestClient from './restClient';
 
 class GraphRestClient {
-  private readonly _clientId: string;
-  private readonly _secret: string;
-  private readonly _scope: string;
+  private readonly _baseUrl: string;
+  private readonly _token: string;
 
-  constructor(clientId: string, secret: string, scope: string) {
-    this._clientId = clientId;
-    this._secret = secret;
-    this._scope = scope;
+  constructor(token: string, baseUrl?: string) {
+    this._baseUrl = baseUrl || 'https://graph.microsoft.com/';
+    this._token = token;
   }
 
-  private getAccessTokenEndpoint(tenantId: string) {
-    return `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
+  private createUrl(urlPath: string): string {
+    return new URL(urlPath, this._baseUrl).href;
   }
 
-  private async getAuthInfo(
-    tenantId: string,
-    redirectUri: string,
-    { code, refreshToken }: { code?: string; refreshToken?: string }
-  ) {
-    const tokenUrl = this.getAccessTokenEndpoint(tenantId);
-    const query = {
-      client_id: this._clientId,
-      client_secret: encodeURI(this._secret as string),
-      scope: this._scope,
-      redirect_uri: encodeURI(redirectUri),
-      grant_type: refreshToken ? 'refresh_token' : 'authorization_code',
-      ...(refreshToken ? { refresh_token: refreshToken } : { code }),
-    };
-    return await RestClient.formUrl(tokenUrl, query);
+  private getHeaders(): HeadersInit {
+    return { Authorization: `Bearer ${this._token}` };
   }
 
-  public async getTokenFromCode(tenantId: string, redirectUri: string, code: string) {
-    return await this.getAuthInfo(tenantId, redirectUri, { code });
+  public async apiGet(urlPath: string) {
+    const url = this.createUrl(urlPath);
+    const extraHeaders = this.getHeaders();
+    const { data } = await RestClient.getJson(url, extraHeaders);
+    return data;
   }
 
-  public async refreshToken(tenantId: string, redirectUri: string, refreshToken: string) {
-    return await this.getAuthInfo(tenantId, redirectUri, { refreshToken });
+  async fetchFile(urlPath: string) {
+    const url = this.createUrl(urlPath);
+    const extraHeaders = this.getHeaders();
+    return await RestClient.file(url, extraHeaders);
+  }
+
+  async getPhoto(upn: string) {
+    const urlPath = `v1.0/users/${upn}/photos/48x48/$value`;
+    const { data } = await this.fetchFile(urlPath);
+    return data ? `data:image/png;base64,${Buffer.from(data).toString('base64')}` : null;
+  }
+
+  async getPeopleImageBlob(urlPath: string) {
+    const url = this.createUrl(urlPath);
+    const extraHeaders = this.getHeaders();
+    return await RestClient.blob(url, extraHeaders);
   }
 }
 

@@ -1,62 +1,110 @@
-import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
+import fetch, { Blob, HeadersInit, RequestInit, Response } from 'node-fetch';
+
+const getResponseJson = async (response: Response): Promise<any | null> => {
+  const text = await response.text();
+  return text ? JSON.parse(text) : null;
+};
 
 export default class RestClient {
-  static async get(endpoint: string, extraHeaders: any = {}, extraOptions: any = {}) {
-    const headers = {
+  static async get(
+    endpoint: string,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<Response> {
+    const headers: HeadersInit = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       ...extraHeaders,
     };
-    const options = {
+    const options: RequestInit = {
       method: 'GET',
       headers,
       ...extraOptions,
     };
-    return await this.call(endpoint, options);
+    return await fetch(endpoint, options);
   }
 
-  static async post(endpoint: string, data: any, extraHeaders: any = {}, extraOptions: any = {}) {
-    const headers = {
+  static async getJson(
+    endpoint: string,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<{ data: any; response: Response }> {
+    const response: Response = await this.get(endpoint, extraHeaders, extraOptions);
+    const data = await getResponseJson(response);
+    return { data, response };
+  }
+
+  static async post(
+    endpoint: string,
+    body: BodyInit,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<Response> {
+    const headers: HeadersInit = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       ...extraHeaders,
     };
-    const options = {
+    const options: RequestInit = {
       method: 'POST',
       headers,
       ...extraOptions,
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     };
-    return await this.call(endpoint, options);
+    return await fetch(endpoint, options);
   }
 
-  static async formUrl(endpoint: string, data: any, extraHeaders: any = {}, extraOptions: any = {}) {
-    const headers = {
+  static async postJson(
+    endpoint: string,
+    body: BodyInit,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<{ data: any; response: Response }> {
+    const response: Response = await this.post(endpoint, body, extraHeaders, extraOptions);
+    const data = await getResponseJson(response);
+    return { data, response };
+  }
+
+  static async formUrl(
+    endpoint: string,
+    body: any,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<{ data: any; response: Response }> {
+    const headers: HeadersInit = {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
       ...extraHeaders,
     };
-    const options = {
+    const options: RequestInit = {
       method: 'POST',
       headers,
       ...extraOptions,
-      body: new URLSearchParams(data).toString(),
+      body: new URLSearchParams(body).toString(),
     };
-    return await this.call(endpoint, options);
+    const response: Response = await fetch(endpoint, options);
+    const data = await getResponseJson(response);
+    return { data, response };
   }
 
-  static async call(endpoint: string, options: any) {
-    const response = await fetch(endpoint, options);
-    let data: any;
-    try {
-      const bodyAsText = await response.text();
-      if (bodyAsText) {
-        data = JSON.parse(bodyAsText) as any;
-      }
-    } catch (error: any) {
-      throw error;
-    }
+  static async file(
+    endpoint: string,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<{ data: ArrayBuffer; response: Response }> {
+    const response: Response = await this.get(endpoint, extraHeaders, extraOptions);
+    const data: ArrayBuffer = await response.arrayBuffer();
+    return { data, response };
+  }
+
+  static async blob(
+    endpoint: string,
+    extraHeaders: HeadersInit = {},
+    extraOptions: RequestInit = {}
+  ): Promise<{ data: Blob; response: Response }> {
+    const response: Response = await this.get(endpoint, extraHeaders, extraOptions);
+    const data: Blob = await response.blob();
     return { data, response };
   }
 

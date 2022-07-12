@@ -7,7 +7,8 @@ import { Team } from './TeamModel';
 import { Geography } from './GeographyModel';
 import { OrganizationMember } from './OrganizationMemberModel';
 import { TeamMember } from './TeamMemberModel';
-
+import { Conversation } from './ConversationModel';
+import { Comment } from './CommentModel';
 export * from './MessageModel';
 export * from './AttachmentModel';
 export * from './UserModel';
@@ -16,6 +17,9 @@ export * from './OrganizationModel';
 export * from './TeamModel';
 export * from './OrganizationMemberModel';
 export * from './TeamMemberModel';
+export * from './TeamMemberModel';
+export * from './ConversationModel';
+export * from './CommentModel';
 
 export const MessageModel = getModelForClass(Message);
 export const AttachmentModel = getModelForClass(Attachment);
@@ -25,3 +29,5 @@ export const OrganizationModel = getModelForClass(Organization);
 export const TeamModel = getModelForClass(Team);
 export const OrganizationMemberModel = getModelForClass(OrganizationMember);
 export const TeamMemberModel = getModelForClass(TeamMember);
+export const ConversationModel = getModelForClass(Conversation);
+export const CommentModel = getModelForClass(Comment);

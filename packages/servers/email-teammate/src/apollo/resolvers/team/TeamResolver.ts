@@ -1,7 +1,13 @@
 import { Arg, Query, Resolver, Mutation } from 'type-graphql';
 import { Team } from '@harmonie/server-db';
 import { teamService } from '../../../services';
-import { getOrganizationTeamsInput, getTeamInput, updateTeamInput, createTeamInput } from './types';
+import {
+  getOrganizationTeamsInput,
+  getTeamInput,
+  updateTeamInput,
+  createTeamInput,
+  getOrganizationsTeamsInput,
+} from './types';
 
 @Resolver()
 export default class TeamResolver {
@@ -30,5 +36,11 @@ export default class TeamResolver {
   async getOrganizationTeams(@Arg('args') args: getOrganizationTeamsInput) {
     const { organizationObjectId } = args;
     return await teamService.getOrganizationTeams(organizationObjectId);
+  }
+
+  @Query(() => [Team])
+  async getOrganizationsTeams(@Arg('args') args: getOrganizationsTeamsInput) {
+    const { organizationObjectIds } = args;
+    return await teamService.getOrganizationsTeams(organizationObjectIds);
   }
 }

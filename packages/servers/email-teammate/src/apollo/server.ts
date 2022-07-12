@@ -10,6 +10,7 @@ import {
   OrganizationMemberResolver,
   TeamResolver,
   TeamMemberResolver,
+  UserResolver,
 } from './resolvers';
 import { initContext } from './initContext';
 
@@ -27,6 +28,7 @@ export default async (app: Express): Promise<ApolloServer> => {
         OrganizationMemberResolver,
         TeamResolver,
         TeamMemberResolver,
+        UserResolver,
       ],
       validate: false,
       emitSchemaFile: true,

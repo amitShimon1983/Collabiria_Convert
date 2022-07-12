@@ -5,3 +5,4 @@ export { default as OrganizationMemberResolver } from './organizationMember/Orga
 export { default as TeamResolver } from './team/TeamResolver';
 export { default as TeamMemberResolver } from './teamMember/TeamMemberResolver';
 export { default as PeopleResolver } from './people/PeopleResolvers';
+export { default as UserResolver } from './user/UserResolver';

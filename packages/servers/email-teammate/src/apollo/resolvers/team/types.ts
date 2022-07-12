@@ -31,3 +31,9 @@ export class getOrganizationTeamsInput {
   @Field(() => String)
   organizationObjectId!: string;
 }
+
+@InputType()
+export class getOrganizationsTeamsInput {
+  @Field(() => [String])
+  organizationObjectIds!: string[];
+}
