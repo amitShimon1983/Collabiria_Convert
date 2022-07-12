@@ -1,5 +1,5 @@
 {
-  "name": "@harmonie/task-board",
+  "name": "@harmonie/email-teammate",
   "version": "0.1.0",
   "private": true,
   "lint-staged": {
