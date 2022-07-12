@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  right: -10px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button {
+  display: inline;
+  width: 40px;
+  overflow: hidden;
+  text-decoration: none;
+  min-width: none;
+  padding: 1vh;
+}
+
+.text {
+  width: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+}

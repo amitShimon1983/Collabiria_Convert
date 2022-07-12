@@ -1,7 +1,7 @@
 import { Spinner } from 'office-ui-fabric-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { List, AutoSizer, InfiniteLoader, Index, IndexRange, ScrollParams, ListRowProps } from 'react-virtualized';
-import { CellMeasurerCacheInterface } from 'react-virtualized/dist/es/CellMeasurer';
+import { CellMeasurerCache } from 'react-virtualized/dist/es/CellMeasurer';
 
 export interface CustomRowRendererProps extends ListRowProps {
   item: any;
@@ -14,7 +14,7 @@ export interface VirtualListProps {
   rowHeight: number | ((params: Index) => number);
   pageSize?: number;
   CustomRowRenderer: (props: CustomRowRendererProps) => JSX.Element;
-  deferredMeasurementCache?: CellMeasurerCacheInterface | undefined;
+  deferredMeasurementCache?: CellMeasurerCache | undefined;
   overscanRowCount?: number | undefined;
   onScroll?: ((params: ScrollParams) => any) | undefined;
   style?: React.CSSProperties | undefined;
@@ -52,7 +52,7 @@ const VirtualList = ({
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const loadMore = async ({ startIndex, stopIndex }) => {
+  const loadMore = async ({ startIndex, stopIndex }: { startIndex: number; stopIndex: number }) => {
     if (!loading) {
       setLoading(true);
       const { records, hasMorePage } = await getMoreRows({ startIndex, stopIndex });

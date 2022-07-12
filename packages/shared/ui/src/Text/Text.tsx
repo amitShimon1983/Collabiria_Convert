@@ -65,7 +65,7 @@ export interface TextProps {
   style?: any;
 }
 
-const StyledText = styled.span`
+const StyledText = styled(({ clip, bold, white, ...props }) => <span {...props} />)`
   ${weightStyle}
   ${wordBreakStyle}
   ${truncateStyle}

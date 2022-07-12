@@ -14,8 +14,6 @@ export const CREATE_TEAM_QUERY = gql`
   }
 `;
 
-const useCreateTeam = () => {
+export const useCreateTeam = () => {
   return useMutation(CREATE_TEAM_QUERY);
 };
-
-export default useCreateTeam;

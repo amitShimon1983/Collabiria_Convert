@@ -1,0 +1,33 @@
+.container {
+  position: absolute;
+  right: -10px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.button {
+  display: inline;
+  width: 50px;
+  overflow: hidden;
+  text-decoration: none;
+  min-width: none;
+  padding: 1vh;
+  transition: width 0.3s ease-in-out;
+}
+
+.button:hover {
+  width: 130px;
+}
+.button:hover .text {
+  display: flex;
+  width: 100px;
+}
+
+.text {
+  margin-left: 1vh;
+  transition: width 0.3s ease-in-out;
+  width: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -52,7 +52,6 @@ const MainPage = ({ onSelectMail, selectedMail }: MainPageProps) => {
     ? autoCompleteUtils.stringToTerms(searchOptions.searchString)
     : { freeText: '' };
   const onSearchOptionsUpdate = useCallback(({ searchTerm, scope, terms }) => {
-    debugger;
     const payload = {
       searchString: terms?.freeText ? terms.freeText : searchTerm,
       scope,

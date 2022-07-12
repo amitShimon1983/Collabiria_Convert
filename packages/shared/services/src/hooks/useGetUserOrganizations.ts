@@ -7,23 +7,18 @@ export const GET_USER_ORGANIZATIONS_QUERY = gql`
         _id
         name
         base64logo
-        license {
-          name
-          type
-        }
       }
       role
     }
   }
 `;
 
-const useGetUserOrganizations = (userObjectId: string, role?: string) => {
+export const useGetUserOrganizations = (userObjectId: string, role?: string) => {
   return useQuery(GET_USER_ORGANIZATIONS_QUERY, {
+    skip: !userObjectId,
     variables: {
       userObjectId,
       ...(role && { role }),
     },
   });
 };
-
-export default useGetUserOrganizations;

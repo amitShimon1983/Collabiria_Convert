@@ -40,7 +40,6 @@ export function MailSearch({ onSearch, searchScopes, selectedFolder, className, 
 
   const handleAutocompleteSearch = useCallback(
     values => {
-      debugger
       onSearch({
         ...values,
         scope: searchScopeKey,

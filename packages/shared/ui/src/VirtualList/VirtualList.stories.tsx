@@ -1,8 +1,8 @@
 import React from 'react';
 import { Story } from '@storybook/react';
-import VirtualList, { CustomRowRendererProps } from './VirtualList';
 import { IndexRange } from 'react-virtualized';
-import { utils } from '@harmonie/servercollabria-frontend-shared';
+import { utils } from '@harmonie/services';
+import SimpleVirtualList, { CustomRowRendererProps } from './VirtualList';
 import { Box } from '../Box';
 import { Skeleton } from '../Skeleton';
 import { Text } from '../Text';
@@ -25,7 +25,7 @@ const getMoreRows = async ({ stopIndex, startIndex }: IndexRange, pageSize: numb
 export const Template: Story = ({ width, height, pageSize, rowHeight }) => {
   return (
     <Box width={width} height={height}>
-      <VirtualList
+      <SimpleVirtualList
         pageSize={pageSize}
         rowHeight={rowHeight}
         getMoreRows={(indexRange: IndexRange) => getMoreRows(indexRange, pageSize)}
