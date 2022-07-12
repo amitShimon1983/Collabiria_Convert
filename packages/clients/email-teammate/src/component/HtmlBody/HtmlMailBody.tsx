@@ -138,5 +138,5 @@ const HtmlMailBody = (
 
 export default forwardRef(HtmlMailBody);
 function transformElementForDarkMode(elem: HTMLElement, baseWhiteColor: string): void {
-  throw new Error('Function not implemented.');
+  // throw new Error('Function not implemented.');
 }

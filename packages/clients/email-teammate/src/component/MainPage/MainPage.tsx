@@ -92,6 +92,7 @@ const MainPage = ({ onSelectMail, selectedMail }: MainPageProps) => {
       },
     };
   };
+  console.log('EmailTeammate');
 
   return (
     <>
