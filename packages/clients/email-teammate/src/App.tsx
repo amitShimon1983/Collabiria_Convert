@@ -33,17 +33,15 @@ const App: FunctionComponent<AppProps> = () => {
           >
             <Settings />
           </GuardRoute>
-          <GuardRoute
-            path={`${appConfig.appBaseName}${appConfig.finishAuthRedirectEndpoint}`}
-            exact
-            handleLogin={graphAuthentication?.handleAzureLogin?.bind(graphAuthentication)}
-          >
+          <Route path={`${appConfig.appBaseName}${appConfig.finishAuthRedirectEndpoint}`} exact>
             <FinishAuth
+              faildUrl={`${appConfig.appBaseName}/login`}
+              successUrl={`${appConfig.appBaseName}/shared`}
               appConfig={appConfig}
               authenticateUser={graphAuthentication?.authenticateUser?.bind(graphAuthentication)}
               url={`${window.location.origin}${appConfig.appBaseName}${appConfig.finishAuthRedirectEndpoint}`}
             />
-          </GuardRoute>
+          </Route>
           <Route path="*" render={() => <Redirect to={`${appConfig.appBaseName}/shared`} />} />
         </Switch>
       </Router>

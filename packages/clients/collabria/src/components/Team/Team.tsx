@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Text, H1, SimpleVirtualList, CustomRowRendererProps, Skeleton } from '@harmonie/ui';
 import { ApolloConsumer, GET_TEAM_ROOT_MESSAGES, ApolloClient } from '@harmonie/services';

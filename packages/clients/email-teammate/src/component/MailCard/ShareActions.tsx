@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { mixpanelEvent, useDeviceContext } from '@harmonie/services';
 import PotentialTaskView from '../PotentialTask/PotentialTaskView';
 import { IconButton, Callout } from '@harmonie/ui';
@@ -18,13 +18,6 @@ const ShareActions = ({
 }) => {
   const { isMobile: IsMobile, isTablet } = useDeviceContext();
   const isMobile = IsMobile && !isTablet;
-
-  useEffect(() => {
-    if (isCalloutVisible) {
-      mixpanelEvent('Show Preview');
-    }
-  }, [isCalloutVisible]);
-
   const needToChangeIcon = isCalloutVisible && isMobile;
   return (
     <div className="share-actions">

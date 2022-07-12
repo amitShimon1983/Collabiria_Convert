@@ -4,7 +4,7 @@ import { GraphAuthentication } from '@harmonie/services';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import appConfig from './configuration/configuration';
 import { CreateTeam, Home, Shell, Team } from './components';
-
+import './App.css';
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {

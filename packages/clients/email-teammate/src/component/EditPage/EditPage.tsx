@@ -1,5 +1,5 @@
 /* eslint-disable @welldone-software/modules-engagement */
-import React, { useCallback, useState, useEffect, useRef, FunctionComponent } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import EditPageFooter from './EditPageFooter';
 import classes from './EditPage.module.scss';
 import { appContextVar, useBoolean, useDeviceContext, useReactiveVar } from '@harmonie/services';
@@ -22,16 +22,16 @@ const EditPage: FunctionComponent<EditPageProps> = ({ selectedMail, onBack }) =>
   const [isCalloutVisible, { toggle: toggleIsCalloutVisible }] = useBoolean(false);
   const mailAttachments = selectedMail?.attachments;
   const { data, loading: attachmentsLoading } = useGetEmailAttachments({ id: selectedMail?.messageId });
-  const onRemoveAttachment = useCallback(
-    removedAttachment => {
-      setRemovedAttachmentsIds([...removedAttachmentsIds, removedAttachment.attachmentId]);
-    },
-    [removedAttachmentsIds, mailAttachments]
-  );
-  const goBack = useCallback(() => {
+
+  const onRemoveAttachment = (removedAttachment: any) => {
+    setRemovedAttachmentsIds([...removedAttachmentsIds, removedAttachment.attachmentId]);
+  };
+
+  const goBack = () => {
     setErrorMessage(undefined);
     onBack();
-  }, [onBack]);
+  };
+
   const displayFooter = !isMobile || (isMobile && !isCalloutVisible);
   return (
     <div className={`${classes['edit-page']} ${selectedMail && classes['active']}`}>

@@ -10,7 +10,9 @@ interface SettingsProps {}
 const Settings: FunctionComponent<SettingsProps> = () => {
   const [authProvider, setAuthProvider] = useState<AuthProvider>();
   useEffect(() => {
-    setAuthProvider(new AuthProvider(appConfig));
+    if (!authProvider) {
+      setAuthProvider(new AuthProvider(appConfig));
+    }
   }, []);
   const handleLogout = () => {
     authProvider?.handleLogout();

@@ -60,7 +60,9 @@ const Shell: FunctionComponent<ShellProps> = ({ children }) => {
   }, [data, navigateToOrganization, teamObjectId, organizationObjectId]);
 
   useEffect(() => {
-    setAuthProvider(new AuthProvider(appConfig));
+    if (!authProvider) {
+      setAuthProvider(new AuthProvider(appConfig));
+    }
   }, []);
 
   const handleLogout = () => {
