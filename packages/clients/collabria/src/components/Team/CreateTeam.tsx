@@ -22,7 +22,7 @@ const CreateTeam = () => {
         organizationObjectId: userOrganizationId,
       },
     });
-  }, [teamName]);
+  }, [teamName, user?._id, userOrganizations]);
 
   return (
     <Box asColumn={true} flex={0.5} margin="auto">

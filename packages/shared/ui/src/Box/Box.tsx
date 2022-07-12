@@ -63,7 +63,7 @@ const flexAlignStyle = ({ clip, sizing = 'border', justify, align }: any) => css
   align-items: ${align};
   box-sizing: ${sizing}-box;
   overflow: ${clip ? 'hidden' : 'visible'};
-  overflow-x: hidden;
+  // overflow-x: hidden;
 `;
 
 const flexStyle = ({ flex }: any) => css`
@@ -91,7 +91,28 @@ export interface IBox {
 
 export interface BoxProps extends IBox, FunctionComponent<any> {}
 
-const Box = styled.div<BoxProps>`
+const Box = styled(
+  ({
+    as,
+    bg,
+    asRow,
+    asColumn,
+    reversed,
+    clip,
+    align,
+    justify,
+    sizing,
+    width,
+    height,
+    shadow,
+    padding,
+    margin,
+    radius,
+    bordered,
+    flex,
+    ...props
+  }) => <div {...props} />
+)`
   .box-scroller ::-webkit-scrollbar {
     width: 6px;
     height: 6px;

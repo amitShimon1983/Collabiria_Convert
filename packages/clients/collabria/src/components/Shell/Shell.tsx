@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState, useCallback, Children } from 'react';
+import React, { FunctionComponent, useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { DefaultButton as Button, Stack, ErrorState } from '@harmonie/ui';
 import { appContextVar, AuthProvider, useReactiveVar, useGetUser } from '@harmonie/services';
@@ -38,19 +38,19 @@ const Shell: FunctionComponent<ShellProps> = ({ children }) => {
       const teamId = getDefaultTeamId(organizationObjectId);
       history.push(`/organizations/${organizationObjectId}/teams/${teamId || 'create'}`);
     },
-    [getDefaultTeamId]
+    [getDefaultTeamId, history]
   );
 
   const onNavigateToTeam = useCallback(
     (teamObjectId: string) => {
       history.push(`/organizations/${organizationObjectId}/teams/${teamObjectId}`);
     },
-    [organizationObjectId]
+    [organizationObjectId, history]
   );
 
   const navigateToCreateTeam = useCallback(() => {
     history.push(`/organizations/${organizationObjectId}/teams/create`);
-  }, [organizationObjectId]);
+  }, [organizationObjectId, history]);
 
   useEffect(() => {
     if (data?.organizations && data?.teams && !teamObjectId && !organizationObjectId) {
@@ -63,7 +63,7 @@ const Shell: FunctionComponent<ShellProps> = ({ children }) => {
     if (!authProvider) {
       setAuthProvider(new AuthProvider(appConfig));
     }
-  }, []);
+  }, [authProvider]);
 
   const handleLogout = () => {
     authProvider?.handleLogout();

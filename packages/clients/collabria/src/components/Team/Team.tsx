@@ -13,7 +13,7 @@ const Item = ({ style, index, rowHeight, item }: any) => (
             <Text bold clip>
               {item.subject} - {index}
             </Text>
-            <Text clip>
+            <Text>
               {item.subject} - {index}
             </Text>
           </>
