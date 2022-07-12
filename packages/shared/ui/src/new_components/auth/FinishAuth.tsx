@@ -1,19 +1,20 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-// import { Box, Text, Button } from '@harmonie/servercollabria-frontend-storybook';
-// import {  } from 'react-router-dom';
-// import { appContextVar, AuthProvider } from '../../services';
+import { Box, Text, Button } from '@harmonie/ui';
+import { useHistory } from 'react-router-dom';
+import { appContextVar, AuthProvider } from '@harmonie/services';
 interface FinishAuthProps {
   url?: string;
+  successUrl: string;
+  faildUrl: string;
   authenticateUser: any;
   appConfig: { [key: string]: any };
 }
 
-const FinishAuth: FunctionComponent<FinishAuthProps> = ({ url, authenticateUser, appConfig }) => {
+const FinishAuth: FunctionComponent<FinishAuthProps> = ({ url, authenticateUser, appConfig, faildUrl, successUrl }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  // const appContext = appContextVar();
-
-  // const navigate = useNavigate();
+  const appContext = appContextVar();
+  const history = useHistory();
   useEffect(() => {
     authenticateUser(url, onLoginSuccess, onLoginFailed);
   }, []);
@@ -21,14 +22,14 @@ const FinishAuth: FunctionComponent<FinishAuthProps> = ({ url, authenticateUser,
     if (data?.userDetailsToken) {
       setIsLoading(false);
       setIsSuccess(data?.isAuthenticate);
-      // const authProvider = new AuthProvider(appConfig);
-      // const res = authProvider?.onAuthenticationSuccess(data);
-      // appContextVar({
-      //   ...appContext,
-      //   user: res?.user,
-      //   isAuthenticate: res?.isAuthenticate,
-      //   isNewUser: res?.isNewUser,
-      // });
+      const authProvider = new AuthProvider(appConfig);
+      const res = authProvider?.onAuthenticationSuccess(data);
+      appContextVar({
+        ...appContext,
+        user: res?.user,
+        isAuthenticate: res?.isAuthenticate,
+        isNewUser: res?.isNewUser,
+      });
     } else {
       setIsLoading(false);
     }
@@ -37,15 +38,15 @@ const FinishAuth: FunctionComponent<FinishAuthProps> = ({ url, authenticateUser,
     setIsLoading(false);
   };
   const navigateTo = (routeName: string) => {
-    // navigate(routeName);
+    history.push(routeName);
   };
   if (isLoading) {
     return <div>We are verifying your identity...</div>;
   }
   const component = isSuccess ? (
-    <SuccessLogin navigateTo={() => navigateTo('/home')} />
+    <SuccessLogin navigateTo={() => navigateTo(successUrl)} />
   ) : (
-    <ErrorLogin navigateTo={() => navigateTo('/login')} />
+    <ErrorLogin navigateTo={() => navigateTo(faildUrl)} />
   );
   return <Box>{component}</Box>;
 };

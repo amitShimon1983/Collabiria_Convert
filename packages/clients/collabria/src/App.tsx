@@ -46,17 +46,15 @@ const App: FunctionComponent<AppProps> = () => {
               <CreateTeam />
             </Shell>
           </GuardRoute>
-          <GuardRoute
-            path={`${appConfig.finishAuthRedirectEndpoint}`}
-            exact
-            handleLogin={graphAuthentication?.handleAzureLogin?.bind(graphAuthentication)}
-          >
+          <Route path={`/collabria/auth/end`} exact>
             <FinishAuth
+              successUrl={'/home'}
+              faildUrl={'/login'}
               appConfig={appConfig}
               authenticateUser={graphAuthentication?.authenticateUser?.bind(graphAuthentication)}
               url={`${window.location.origin}${appConfig.appBaseName}${appConfig.finishAuthRedirectEndpoint}`}
             />
-          </GuardRoute>
+          </Route>
           <Route path="*" render={() => <Redirect to={`/home`} />} />
         </Switch>
       </Router>

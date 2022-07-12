@@ -9,6 +9,22 @@ import Attachment from './Attachment';
 import { useDeviceContext, utils, useProfilePicture } from '@harmonie/services';
 import { Persona, Tooltip } from '@harmonie/ui';
 
+const hoverClassMergeStyles = (semanticColors: any) =>
+  mergeStyles({
+    selectors: {
+      ':hover': {
+        backgroundColor: semanticColors.bodyBackgroundHovered,
+      },
+      ':active': {
+        backgroundColor: semanticColors.bodyBackgroundHovered,
+        outlineColor: semanticColors.inputFocusBorderAlt,
+      },
+      ':focus': {
+        backgroundColor: semanticColors.bodyBackgroundHovered,
+        outlineColor: semanticColors.inputFocusBorderAlt,
+      },
+    },
+  });
 const containerStyle = { display: 'flex' };
 const Mail = ({
   style,
@@ -43,22 +59,7 @@ const Mail = ({
 }) => {
   const { isMobile } = useDeviceContext();
   const [showError, setShowError] = useState(!!errorMessage);
-  const hoverClass = mergeStyles({
-    selectors: {
-      ':hover': {
-        backgroundColor: semanticColors.bodyBackgroundHovered,
-      },
-      ':active': {
-        backgroundColor: semanticColors.bodyBackgroundHovered,
-        outlineColor: semanticColors.inputFocusBorderAlt,
-      },
-      ':focus': {
-        backgroundColor: semanticColors.bodyBackgroundHovered,
-        outlineColor: semanticColors.inputFocusBorderAlt,
-      },
-    },
-  });
-
+  const hoverClass = hoverClassMergeStyles(semanticColors);
   const { isTopResult, isRead, sentDateTime, bodyPreview, attachments, from } = mail;
   const { name, address } = from?.emailAddress || {};
   const isReadStyle = isRead ? {} : { borderLeft: '6px solid #1F9EFF' };
